@@ -81,5 +81,7 @@ public class SudokuMenuBar extends JMenuBar {
         helpMenu.add(aboutItem);
 
         add(helpMenu);
+
+        
     }
 }
