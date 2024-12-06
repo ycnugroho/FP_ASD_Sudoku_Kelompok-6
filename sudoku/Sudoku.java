@@ -62,7 +62,15 @@ public class Sudoku extends JFrame {
             { 0, 0, 3, 0, 0, 0, 0, 0, 0 }
     };
 
+    private Player player;
+    private JLabel playerInfoLabel;
+
     public Sudoku() {
+
+        new Welcome(this);
+
+        String playerName = JOptionPane.showInputDialog("Enter your name:");
+        player = new Player(playerName);
         puzzle = easyPuzzle; // Default puzzle
         originalPuzzle = Utils.copyMatrix(puzzle); // Salin untuk reset
         cells = new JTextField[GRID_SIZE][GRID_SIZE];
@@ -73,6 +81,9 @@ public class Sudoku extends JFrame {
 
         JPanel panel = new JPanel(new GridLayout(GRID_SIZE, GRID_SIZE));
         cp.add(panel, BorderLayout.CENTER);
+
+        playerInfoLabel = new JLabel("Player: " + player.getName() + " | High Score: " + player.getHighScore());
+        cp.add(playerInfoLabel, BorderLayout.NORTH);
 
         initGrid(panel); // Inisialisasi grid
 
@@ -287,6 +298,15 @@ public class Sudoku extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new Sudoku().setVisible(true));
+    }
+
+    public int[][] getPuzzle() {
+        return puzzle;
+    }
+
+    // Method to get the cells
+    public JTextField[][] getCells() {
+        return cells;
     }
 
 }

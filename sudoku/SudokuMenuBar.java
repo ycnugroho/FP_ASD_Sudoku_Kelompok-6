@@ -82,6 +82,28 @@ public class SudokuMenuBar extends JMenuBar {
 
         add(helpMenu);
 
+        JMenu hintMenu = new JMenu("Hints");
+        JMenuItem hintItem = new JMenuItem("Get Hint");
+        hintItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String input = JOptionPane.showInputDialog(sudoku, "Enter a number for a hint (1-9):");
+                if (input != null) {
+                    try {
+                        int number = Integer.parseInt(input);
+                        if (number >= 1 && number <= 9) {
+                            Hints.revealNumber(sudoku.getPuzzle(), sudoku.getCells(), number);
+                        } else {
+                            JOptionPane.showMessageDialog(sudoku, "Please enter a valid number between 1 and 9.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(sudoku, "Please enter a valid number.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+        hintMenu.add(hintItem);
+        add(hintMenu);
         
     }
 }
